@@ -13,6 +13,8 @@ import requests
 from .constants import HTTP_HEADER_CONTENT_ENCODING, SHA256_DIGEST, FileHeader, ResultStatus
 from .encryption_util import EncryptionMetadata
 
+logger = getLogger(__name__)
+
 GCS_METADATA_PREFIX = 'x-goog-meta-'
 GCS_METADATA_SFC_DIGEST = GCS_METADATA_PREFIX + 'sfc-digest'
 GCS_METADATA_MATDESC_KEY = GCS_METADATA_PREFIX + 'matdesc'
@@ -38,7 +40,6 @@ class SnowflakeGCSUtil:
         Returns:
             The client to communicate with GCS.
         """
-        logger = getLogger(__name__)
         stage_credentials = stage_info['creds']
         security_token = stage_credentials.get('GCS_ACCESS_TOKEN')
 
@@ -71,8 +72,6 @@ class SnowflakeGCSUtil:
         Returns:
             None, if uploading was successful.
         """
-        logger = getLogger(__name__)
-
         if meta.get('presigned_url', None):
             # Use presigned url to upload the object
 
@@ -187,8 +186,6 @@ class SnowflakeGCSUtil:
         Returns:
             None, if downloading was successful.
         """
-        logger = getLogger(__name__)
-
         if meta.get('presigned_url', None):
             # Use presigned url to download the object
             try:
